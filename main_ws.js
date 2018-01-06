@@ -150,6 +150,12 @@ function socketHandlerMessage(e)
     if((typeof data === 'string') && (data.length > 0))
     {
         //console.log('message: ' + data);  
+     
+        if(data === 'ping')
+        {
+            socket.send('pong');    
+            return;
+        }
         
         try
         {
