@@ -141,6 +141,7 @@ function socketHandlerClose(e)
     socket.removeEventListener('close', socketHandlerClose);
     socket.removeEventListener('message', socketHandlerMessage);   
     socket.removeEventListener('error', socketHandlerError);   
+    socket.removeEventListener('ping', socketHandlerPing);
 }
 
 function socketHandlerMessage(e)
@@ -151,12 +152,6 @@ function socketHandlerMessage(e)
     {
         //console.log('message: ' + data);  
      
-        if(data === 'ping')
-        {
-            socket.send('pong');    
-            return;
-        }
-        
         try
         {
             let receivedObject = JSON.parse(data);
@@ -194,6 +189,13 @@ function socketHandlerError(e)
     //console.log('socket error: ' + e.message);  
 }
 
+function socketHandlerPing(e)
+{        
+    //console.log('socket ping');  
+
+    e.target.pong(e.data);
+}
+
 function handleNewClient(socket, req)
 {
     //console.log('connection: ' + req.headers['sec-websocket-key']); 
@@ -201,6 +203,7 @@ function handleNewClient(socket, req)
     socket.addEventListener('close', socketHandlerClose);
     socket.addEventListener('message', socketHandlerMessage);
     socket.addEventListener('error', socketHandlerError);
+    socket.addEventListener('ping', socketHandlerPing);    
 }
 
 wss.on('connection', handleNewClient);    
