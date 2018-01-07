@@ -16,6 +16,7 @@ For Node.js:
 
 ```
 $npm install fluidsync_ws_client
+
 ... 
 
 const FluidSyncClient = require('fluidsync_ws_client');
@@ -25,6 +26,7 @@ const FluidSyncClient = require('fluidsync_ws_client');
 
 ```
 let fluidsync = new FluidSyncClient();
+
 fluidsync.addEventListener('open', (fluidsync) => {
     console.log('connected [' + fluidsync.id + ']');
     // now we can publish
@@ -36,10 +38,12 @@ fluidsync.addEventListener('open', (fluidsync) => {
 
 ```
 let fluidsync = new FluidSyncClient();
+
 fluidsync.addEventListener('open', (fluidsync) => {
     console.log('connected [' + fluidsync.id + ']');               
     fluidsync.subscribe('awesomechannel');
 });
+
 fluidsync.addEventListener('awesomechannel', (fluidsync, message) => {
     console.log(message);    
 });                      
