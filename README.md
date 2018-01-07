@@ -106,7 +106,7 @@ when socket receives incoming message; handler is `function(fluidsync, <string, 
 
 > Note: this general handler interferes with channel messages listeners; if `‘message’` handler is present, no channel messages listeners will be called, so you need to dispatch raw messages manually from this general handler
 
-`pong`
+`’pong’`
 
 when client receives ‘pong’ answer from server (‘pings’ are sent by client periodically); handler is `function(fluidsync){...}`
 
