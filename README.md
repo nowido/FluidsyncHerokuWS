@@ -94,7 +94,7 @@ when client socket is open; handler is `function(fluidsync){...}`
 
 `’close’`
 
-when client socket is closed; handler is `function(fluidsync, <number, code>, <string, reason>){...}`
+when client socket is closed; handler is `function(fluidsync, <number code>, <string reason>){...}`
 
 `’error’`
 
