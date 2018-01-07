@@ -125,6 +125,9 @@ const wss = new WebSocket.Server({
     maxPayload: 8 * 1024
 });
 
+const appLayerPingMessage = 'fluidsync-ping';
+const appLayerPongMessage = 'fluidsync-pong';
+
 function socketHandlerClose(e)
 {
     // e.target === socket
@@ -142,16 +145,29 @@ function socketHandlerClose(e)
     socket.removeEventListener('message', socketHandlerMessage);   
     socket.removeEventListener('error', socketHandlerError);   
     socket.removeEventListener('ping', socketHandlerPing);
+    socket.removeEventListener('pong', socketHandlerPong); 
 }
 
 function socketHandlerMessage(e)
 {    
     let data = e.data;  
     
+    let socket = e.target;
+
     if((typeof data === 'string') && (data.length > 0))
     {
         //console.log('message: ' + data);  
-     
+        
+        if(data === appLayerPingMessage)
+        {
+            if(socket && (socket.readyState === WebSocket.OPEN))
+            {
+                socket.send(appLayerPongMessage);
+            }    
+
+            return;
+        }
+
         try
         {
             let receivedObject = JSON.parse(data);
@@ -164,8 +180,6 @@ function socketHandlerMessage(e)
 
             let action = receivedObject.action;
 
-            let socket = e.target;
-
             if(action === 'subscribe')
             {
                 registerSubscription(receivedObject.channel, socket);
@@ -175,7 +189,7 @@ function socketHandlerMessage(e)
                 removeSubscription(receivedObject.channel, socket);    
             }
             else if(action === 'publish')
-            {
+            {                
                 publish(receivedObject.channel, data);
             }
         }
@@ -193,7 +207,18 @@ function socketHandlerPing(e)
 {        
     //console.log('socket ping');  
 
-    e.target.pong(e.data);
+    let socket = e.target;
+
+    if(socket && (socket.readyState === WebSocket.OPEN))
+    {
+        socket.pong(e.data);
+    }    
+}
+
+function socketHandlerPong(e)
+{        
+    //console.log('socket pong');  
+    //console.log(e.data);
 }
 
 function handleNewClient(socket, req)
@@ -204,6 +229,7 @@ function handleNewClient(socket, req)
     socket.addEventListener('message', socketHandlerMessage);
     socket.addEventListener('error', socketHandlerError);
     socket.addEventListener('ping', socketHandlerPing);    
+    socket.addEventListener('pong', socketHandlerPong);
 }
 
 wss.on('connection', handleNewClient);    
