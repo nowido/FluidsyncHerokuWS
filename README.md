@@ -66,6 +66,8 @@ let message =
 fluidsync.publish(message);
 ```
 
+> FluidSync is oriented for short messages exchange. Currently, there is a constraint (8 KB) on maximum message length. It means, transport size, including protocol overhead. Simply put, user message will be tagged with additional field ‘action’ (which can have values ‘publish’, ‘subscribe’, or ‘unsubscribe’), then JSON-stringified, and transmitted as UTF-8 string through WebSocket.
+
 Both *subscribe* and *unsubscribe* take a string:
 
 ```
