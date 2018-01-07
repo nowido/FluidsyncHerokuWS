@@ -49,10 +49,6 @@ fluidsync.addEventListener('awesomechannel', (fluidsync, message) => {
 });                      
 ```
 
-## Why Heroku?
-
-[Heroku](https://www.heroku.com) grants a generous free hosting. Verified accounts (credit card needed) get 1000 monthly *dyno* hours for absolutely free. So, **FluidSync** service runs 24 hours a day.
-
 ## FluidSync commands
 
 **FluidSync** provides three main actions: *publish*, *subscribe*, and *unsubscribe*.
@@ -98,7 +94,7 @@ when client socket is open; handler is `function(fluidsync){...}`
 
 `’close’`
 
-when client socket is closed; handler is `function(fluidsync, <Number, code>, <string, reason>){...}`
+when client socket is closed; handler is `function(fluidsync, <number, reason code>, <string, reason info, often empty>){...}`
 
 `’error’`
 
@@ -137,6 +133,7 @@ fluidsync.removeEventListener(channel, onChannelMessage);
 ```
 
 > You should not set both general `‘message’` handler and channel listeners. Only general `‘message’` handler will be called.
+
 
 ## FluidSync service is lightweight and almost stateless
 
