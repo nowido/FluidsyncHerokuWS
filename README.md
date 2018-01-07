@@ -132,7 +132,7 @@ fluidsync.addEventListener(channel, onChannelMessage);
 fluidsync.removeEventListener(channel, onChannelMessage);
 ```
 
-> You should not set both general `‘message’` handler and channel listeners. Only general `‘message’` handler will be called.
+> You should not set both general `‘message’` handler and channel listeners. Only general `‘message’` handler will be called in this case.
 
 
 ## FluidSync service is lightweight and almost stateless
