@@ -91,23 +91,27 @@ At present, **FluidSync** doesn’t support *arrays of channels* for multiple su
 ## FluidSync client events
 
 **FluidSync** emits following events:
+
 `’open’`
+
 when client socket is open; handler is `function(fluidsync){...}`
 
 `’close’`
+
 when client socket is closed; handler is `function(fluidsync, <Number, code>, <string, reason>){...}`
 
 `’error’`
+
 when socket error occured; handler is `function(fluidsync){...}`
 
 `’message’`
+
 when socket receives incoming message; handler is `function(fluidsync, <string, rawMessage>){...}`
-> Note:
-> this general handler interferes with channel messages listeners;
-> if `‘message’` handler is present, no channel messages listeners will be called,
-> so you need to dispatch raw messages manually from this general handler
+
+> Note: this general handler interferes with channel messages listeners; if `‘message’` handler is present, no channel messages listeners will be called, so you need to dispatch raw messages manually from this general handler
 
 `pong`
+
 when client receives ‘pong’ answer from server (‘pings’ are sent by client periodically); handler is `function(fluidsync){...}`
 
 You can add/remove handlers with `addEventListener` and `removeEventListener`:
