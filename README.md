@@ -127,7 +127,7 @@ function onChannelMessage(fluidsync, <Object, parsed message>)
 
 fluidsync.addEventListener(channel, onChannelMessage);
 
-…
+...
 
 fluidsync.removeEventListener(channel, onChannelMessage);
 ```
