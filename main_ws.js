@@ -122,7 +122,7 @@ const wss = new WebSocket.Server({
     server: httpServer, 
     clientTracking: false,
     perMessageDeflate: false,
-    //maxPayload: 8 * 1024
+    maxPayload: 8 * 1024
 });
 
 const appLayerPingMessage = 'fluidsync-ping';
